@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
@@ -700,7 +701,7 @@ public class PlayerNotificationManager {
         builder.setCustomContentView(getCustomDesign()); //Custom Design.
 
 
-        //builder.setCustomBigContentView(getCustomDesign());  // Maybe somebody can use it :)
+        builder.setCustomBigContentView(getCustomBigDesign());  // Maybe somebody can use it :)
 
 
         // Set notification properties from getters.
@@ -750,6 +751,20 @@ public class PlayerNotificationManager {
                 R.layout.playback_notification);
 
         remoteViews.setTextViewText(R.id.notification_title, mediaDescriptionAdapter.getCurrentContentTitle(player));  // Notification Title
+
+        //remoteViews.setImageViewResource(R.id.sustcast_icon, R.drawable.sustcast_logo_circle_only);
+
+        return remoteViews;
+    }
+
+    private RemoteViews getCustomBigDesign() {
+        RemoteViews remoteViews = new RemoteViews(
+                context.getPackageName(),
+                R.layout.playback_big_notification);
+
+        remoteViews.setTextViewText(R.id.notification_title, mediaDescriptionAdapter.getCurrentContentTitle(player));  // Notification Title
+
+        //remoteViews.setImageViewResource(R.id.sustcast_icon, R.drawable.sustcast_logo_circle_only);
 
         return remoteViews;
     }

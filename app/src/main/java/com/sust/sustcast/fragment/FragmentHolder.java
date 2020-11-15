@@ -80,7 +80,7 @@ public class FragmentHolder extends AppCompatActivity {
         context = this;
         FontHelper.adjustFontScale(context, getResources().getConfiguration());
 
-        createNotificationChannel();
+        //createNotificationChannel();
 
         try {
             checkForUpdate();
@@ -229,7 +229,7 @@ public class FragmentHolder extends AppCompatActivity {
             NotificationChannel notificationChannel
                     = new NotificationChannel(
                     CHANNEL_ID, CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_LOW);
+                    NotificationManager.IMPORTANCE_MIN);
             notificationManager.createNotificationChannel(
                     notificationChannel);
         }

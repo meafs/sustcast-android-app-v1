@@ -280,6 +280,7 @@ public class ExoHelper {
 
         customPlayerNotificationManager = new com.sust.sustcast.utils.PlayerNotificationManager(context, "123", 1234, mediaDescriptionAdapter1);
         customPlayerNotificationManager.setUseNavigationActions(false);
+        customPlayerNotificationManager.setUsePlayPauseActions(true);
         customPlayerNotificationManager.setSmallIcon(R.drawable.sustcast_logo_circle_only);
         customPlayerNotificationManager.setUseChronometer(false);
         customPlayerNotificationManager.setPlayer(player);
