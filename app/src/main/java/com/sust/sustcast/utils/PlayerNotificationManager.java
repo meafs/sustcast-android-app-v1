@@ -609,6 +609,10 @@ public class PlayerNotificationManager {
     @SuppressWarnings("deprecation")
     private void startOrUpdateNotification(Player player, @Nullable Bitmap bitmap) {
         boolean ongoing = getOngoing(player);
+
+
+
+
         builder = createNotification(player, builder, ongoing, bitmap);
 
         Log.d(TAG, "startOrUpdateNotification: ");
@@ -617,6 +621,8 @@ public class PlayerNotificationManager {
             Log.d(TAG, "startOrUpdateNotification: builder null");
             return;
         }
+
+
         Notification notification = builder.build();
         notificationManager.notify(notificationId, notification);
         if (!isNotificationStarted) {
@@ -637,6 +643,8 @@ public class PlayerNotificationManager {
     @SuppressWarnings("deprecation")
     private void stopNotification(boolean dismissedByUser) {
         if (isNotificationStarted) {
+
+            Log.d(TAG, "stopNotification: ");
             isNotificationStarted = false;
             mainHandler.removeMessages(MSG_START_OR_UPDATE_NOTIFICATION);
             notificationManager.cancel(notificationId);
@@ -704,11 +712,20 @@ public class PlayerNotificationManager {
 
 
 
+        if (shouldShowPauseButton(player))
+        {
+            builder.setCustomContentView(getCustomPlayDesign());
+        }
+        else
+        {
+            builder.setCustomContentView(getCustomPauseDesign());
+        }
 
 
 
 
-        builder.setCustomContentView(getCustomPlayDesign()); //Custom Design.
+
+        //builder.setCustomContentView(getCustomPlayDesign()); //Custom Design.
 
 
         //builder.setCustomBigContentView(getCustomDesign());  // Maybe somebody can use it :)
@@ -765,7 +782,7 @@ public class PlayerNotificationManager {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,playIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        remoteViews.setImageViewResource(R.id.notification_button, R.drawable.exo_notification_play);
+        remoteViews.setImageViewResource(R.id.notification_button, R.drawable.exo_notification_pause);
 
         remoteViews.setOnClickPendingIntent(R.id.notification_button, pendingIntent);
 
@@ -785,7 +802,7 @@ public class PlayerNotificationManager {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,playIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        remoteViews.setImageViewResource(R.id.notification_button, R.drawable.exo_notification_pause);
+        remoteViews.setImageViewResource(R.id.notification_button, R.drawable.exo_notification_play);
 
         remoteViews.setOnClickPendingIntent(R.id.notification_button, pendingIntent);
 

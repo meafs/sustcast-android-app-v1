@@ -16,8 +16,8 @@
         <!-- For some reason image above 56dp is cut in half on some devices!!  -->
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@drawable/sustcast_logo_circle_only" />
     </LinearLayout>
 
@@ -47,10 +47,14 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <ImageButton
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:id="@+id/notification_button"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:src="@drawable/exo_notification_play"
             />
 
