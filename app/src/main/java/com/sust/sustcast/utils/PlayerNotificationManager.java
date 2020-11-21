@@ -49,6 +49,7 @@ import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.NotificationUtil;
 import com.google.android.exoplayer2.util.Util;
+import com.google.api.LogDescriptor;
 import com.sust.sustcast.R;
 import com.sust.sustcast.data.ButtonEvent;
 
@@ -609,14 +610,18 @@ public class PlayerNotificationManager {
     private void startOrUpdateNotification(Player player, @Nullable Bitmap bitmap) {
         boolean ongoing = getOngoing(player);
         builder = createNotification(player, builder, ongoing, bitmap);
+
+        Log.d(TAG, "startOrUpdateNotification: ");
         if (builder == null) {
             stopNotification(/* dismissedByUser= */ false);
+            Log.d(TAG, "startOrUpdateNotification: builder null");
             return;
         }
         Notification notification = builder.build();
         notificationManager.notify(notificationId, notification);
         if (!isNotificationStarted) {
             isNotificationStarted = true;
+            Log.d(TAG, "startOrUpdateNotification: isNotificationStarted");
             context.registerReceiver(notificationBroadcastReceiver, intentFilter);
             if (notificationListener != null) {
                 notificationListener.onNotificationStarted(notificationId, notification);
@@ -692,12 +697,18 @@ public class PlayerNotificationManager {
         // Configure dismiss action prior to API 21 ('x' button).
         mediaStyle.setShowCancelButton(!ongoing);
         mediaStyle.setCancelButtonIntent(dismissPendingIntent);
-        builder.setStyle(mediaStyle);
+        //builder.setStyle(mediaStyle);
 
         // Set intent which is sent if the user selects 'clear all'
         builder.setDeleteIntent(dismissPendingIntent);
 
-        builder.setCustomContentView(getCustomDesign()); //Custom Design.
+
+
+
+
+
+
+        builder.setCustomContentView(getCustomPlayDesign()); //Custom Design.
 
 
         //builder.setCustomBigContentView(getCustomDesign());  // Maybe somebody can use it :)
@@ -744,15 +755,46 @@ public class PlayerNotificationManager {
         return builder;
     }
 
-    private RemoteViews getCustomDesign() {
+    private RemoteViews getCustomPlayDesign() {
         RemoteViews remoteViews = new RemoteViews(
                 context.getPackageName(),
                 R.layout.playback_notification);
+
+        Intent playIntent = new Intent(ACTION_PAUSE).setPackage(context.getPackageName());
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,playIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        remoteViews.setImageViewResource(R.id.notification_button, R.drawable.exo_notification_play);
+
+        remoteViews.setOnClickPendingIntent(R.id.notification_button, pendingIntent);
 
         remoteViews.setTextViewText(R.id.notification_title, mediaDescriptionAdapter.getCurrentContentTitle(player));  // Notification Title
 
         return remoteViews;
     }
+
+
+    private RemoteViews getCustomPauseDesign() {
+        RemoteViews remoteViews = new RemoteViews(
+                context.getPackageName(),
+                R.layout.playback_notification);
+
+        Intent playIntent = new Intent(ACTION_PLAY).setPackage(context.getPackageName());
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,playIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        remoteViews.setImageViewResource(R.id.notification_button, R.drawable.exo_notification_pause);
+
+        remoteViews.setOnClickPendingIntent(R.id.notification_button, pendingIntent);
+
+        remoteViews.setTextViewText(R.id.notification_title, mediaDescriptionAdapter.getCurrentContentTitle(player));  // Notification Title
+
+        return remoteViews;
+    }
+
+
 
 
     protected List<String> getActions(Player player) {
@@ -953,6 +995,8 @@ public class PlayerNotificationManager {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+
+            Log.d(TAG, "onReceive: " + "Yes");
             Player player = PlayerNotificationManager.this.player;
             if (player == null
                     || !isNotificationStarted
@@ -976,6 +1020,8 @@ public class PlayerNotificationManager {
 
             } else if (ACTION_PAUSE.equals(action)) {
                 controlDispatcher.dispatchSetPlayWhenReady(player, /* playWhenReady= */ false);
+
+
 
                 if (player.getPlaybackState() == Player.STATE_READY)
                 {

@@ -197,6 +197,42 @@ public class ExoHelper {
     }
 
 
+
+
+    /*
+    public boolean isPlaying() {
+
+        if (exoPlayer.getPlaybackState() == Player.STATE_READY)
+        {
+            return exoPlayer.getPlaybackState() == Player.STATE_READY && exoPlayer.getPlayWhenReady();
+
+        }
+        else
+
+
+        {
+            return false;
+        }
+
+
+    }
+
+
+     */
+
+    /*
+    @Override
+    public void onIsPlayingChanged(boolean isPlaying) {
+        if (isPlaying) {
+            // player is playing
+        } else {
+            // player is paused
+        }
+    }
+
+
+
+     */
     public void ToggleButton(boolean state) {
         if (state) {
             Drawable img = button.getContext().getResources().getDrawable(R.drawable.play_button);
