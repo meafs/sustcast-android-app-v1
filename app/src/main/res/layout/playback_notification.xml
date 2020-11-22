@@ -6,29 +6,26 @@
     android:orientation="horizontal"
     android:padding="0dp">
 
-    <!-- Customize on your own -->
-    <!-- Warning!!!  Custom view can look differ from device to device -->
-    <!-- Parent Layout of ImageView -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <!-- For some reason image above 56dp is cut in half on some devices!!  -->
         <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/notification_icon"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@drawable/sustcast_logo_circle_only" />
     </LinearLayout>
 
-    <!-- Parent layout for holding the Title and the Body-->
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="6dp">
 
         <!-- TextView for Title -->
         <TextView
@@ -39,16 +36,18 @@
             android:text="@string/playback_paused"
             android:textAllCaps="false"
             android:textSize="18sp"
-            android:textColor="#000" />
+            android:textColor="@color/grey700"
+            />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="12dp">
         <ImageButton
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="48dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/notification_button"
             android:layout_marginLeft="2dp"

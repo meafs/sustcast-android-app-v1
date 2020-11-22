@@ -22,6 +22,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
@@ -714,21 +715,16 @@ public class PlayerNotificationManager {
 
         if (shouldShowPauseButton(player))
         {
-            builder.setCustomContentView(getCustomPlayDesign());
+            builder.setCustomContentView(getCustomPlayDesign()); //Custom Design.
+            builder.setCustomBigContentView(getCustomPlayDesign()); // For expanded state
         }
         else
         {
             builder.setCustomContentView(getCustomPauseDesign());
+            builder.setCustomBigContentView(getCustomPauseDesign());
         }
 
 
-
-
-
-        //builder.setCustomContentView(getCustomPlayDesign()); //Custom Design.
-
-
-        //builder.setCustomBigContentView(getCustomDesign());  // Maybe somebody can use it :)
 
 
         // Set notification properties from getters.
@@ -772,10 +768,24 @@ public class PlayerNotificationManager {
         return builder;
     }
 
+    /*
+
+    private int isDarkMode()
+    {
+
+        return context.getResources().getConfiguration().uiMode & ( Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES);
+
+    }
+
+
+     */
+
+
     private RemoteViews getCustomPlayDesign() {
         RemoteViews remoteViews = new RemoteViews(
                 context.getPackageName(),
                 R.layout.playback_notification);
+        remoteViews.setImageViewResource(R.id.notification_icon, R.drawable.sustcast_logo_circle_only);
 
         Intent playIntent = new Intent(ACTION_PAUSE).setPackage(context.getPackageName());
 
@@ -796,6 +806,8 @@ public class PlayerNotificationManager {
         RemoteViews remoteViews = new RemoteViews(
                 context.getPackageName(),
                 R.layout.playback_notification);
+
+        remoteViews.setImageViewResource(R.id.notification_icon, R.drawable.sustcast_logo_circle_only);
 
         Intent playIntent = new Intent(ACTION_PLAY).setPackage(context.getPackageName());
 
