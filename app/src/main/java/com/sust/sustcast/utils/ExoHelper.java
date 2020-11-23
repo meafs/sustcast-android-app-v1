@@ -167,6 +167,13 @@ public class ExoHelper {
     }
 
 
+    public void StopNotification()
+    {
+
+        customPlayerNotificationManager.setPlayer(null);
+    }
+
+
     public void EventStatus(boolean b)
     {
         EventBus.getDefault().post(new ButtonEvent(b));

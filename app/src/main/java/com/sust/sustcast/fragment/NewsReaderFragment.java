@@ -68,6 +68,7 @@ public class NewsReaderFragment extends Fragment {
                 Crashlytics.logException(error);
                 Toast.makeText(getContext(), rootView.getContext().getString(R.string.server_off), Toast.LENGTH_LONG).show();
                 exoHelper.ToggleButton(false);
+                exoHelper.StopNotification();
             }
         }, bPlay, "NewsReader");
 

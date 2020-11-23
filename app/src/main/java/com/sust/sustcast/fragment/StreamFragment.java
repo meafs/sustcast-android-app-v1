@@ -94,6 +94,7 @@ public class StreamFragment extends Fragment implements Player.EventListener {
                 Log.i(TAG, "NETWORKERROR");
                 Toast.makeText(getContext(), rootView.getContext().getString(R.string.server_off), Toast.LENGTH_LONG).show();
                 exoHelper.ToggleButton(false);
+                exoHelper.StopNotification();
                 Crashlytics.logException(error);
 
             }
