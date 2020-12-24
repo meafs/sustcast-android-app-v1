@@ -201,6 +201,7 @@ public class StreamFragment extends Fragment implements Player.EventListener {
         unbinder.unbind();
         urlRef.removeEventListener(cListener);
         exoHelper.stopExo();
+        //exoHelper.StopNotification();
     }
 
 

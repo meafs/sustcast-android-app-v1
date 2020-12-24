@@ -27,7 +27,7 @@
         android:orientation="vertical"
         android:padding="6dp">
 
-        <!-- Choose the color that suits both with dark & normal mode!! -->
+        <!-- For the color: https://stackoverflow.com/a/52016259/13296516 -->
         <TextView
             android:id="@+id/notification_title"
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             android:text="@string/playback_paused"
             android:textAllCaps="false"
             android:textSize="18sp"
-            android:textColor="#FED500"
+            style="@style/TextAppearance.Compat.Notification.Title"
             />
 
     </LinearLayout>
