@@ -54,7 +54,8 @@ public class ExoHelper {
     private Player.EventListener eventListener;
     private Button button;
     private PlayerNotificationManager playerNotificationManager;
-    private com.sust.sustcast.utils.PlayerNotificationManager customPlayerNotificationManager; 
+    private com.sust.sustcast.utils.PlayerNotificationManager customPlayerNotificationManager;
+    public boolean playBackState;
 
 
     public ExoHelper(Context context) {
@@ -62,6 +63,9 @@ public class ExoHelper {
     }
 
     public ExoHelper(Context context, Player.EventListener eventListener, Button button, String fragmentName) {
+
+
+
         if (exoPlayer != null) {
             return;
         }
@@ -75,16 +79,6 @@ public class ExoHelper {
 
     }
 
-
-    public ExoHelper(Context context, Player.EventListener eventListener, String fragmentName) {
-        if (exoPlayer != null) {
-            return;
-        }
-
-        this.context = context;
-        this.fragmentName = fragmentName;
-        this.eventListener = eventListener;
-    }
 
     public void stopExo() {
         if (exoPlayer != null) { //if exo is running
@@ -109,10 +103,14 @@ public class ExoHelper {
             return;
         }
 
+
+
         if (exoPlayer != null) {
             Log.d(TAG, "startExo: Exo is already running now");
             return;
         }
+
+
 
         iceURL = newUrl;
 
@@ -141,6 +139,8 @@ public class ExoHelper {
         if (eventListener != null) {
             exoPlayer.addListener(eventListener);
         }
+
+
         exoPlayer.prepare(mediaSource);
         exoPlayer.setPlayWhenReady(true);
 
@@ -148,6 +148,15 @@ public class ExoHelper {
          ToggleButton(true);
         //setPlayerNotificationManager(exoPlayer);
         createCustomPlayerNotificationManger(exoPlayer);
+
+        exoPlayer.addListener(new Player.EventListener() {
+            @Override
+            public void onIsPlayingChanged(boolean isPlaying) {
+                playBackState = isPlaying;
+            }
+        });
+
+
 
 
     }
@@ -171,6 +180,19 @@ public class ExoHelper {
     {
 
         customPlayerNotificationManager.setPlayer(null);
+    }
+
+
+
+
+
+
+
+
+    public boolean isPlaying()
+    {
+        return playBackState;
+
     }
 
 

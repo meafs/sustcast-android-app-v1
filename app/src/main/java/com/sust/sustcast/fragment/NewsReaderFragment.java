@@ -82,16 +82,26 @@ public class NewsReaderFragment extends Fragment {
     private void setButton() {
         bPlay.setOnClickListener(view -> {
 
-            Log.d(TAG, "setButton: " + isPlaying );
 
 
-            if (!isPlaying) {
-                exoHelper.startExo(rootView.getContext().getString(R.string.bbc_news));
-            } else {
+            if (exoHelper.isPlaying()) {
+
                 exoHelper.stopExo();
+                Log.d(TAG, "setButton:  Stop Expo " + exoHelper.isPlaying());
+
+
+
+            } else {
+
+                exoHelper.startExo(rootView.getContext().getString(R.string.bbc_news));
+                Log.d(TAG, "setButton:  Start Expo " + exoHelper.isPlaying());
+
+
+
+
             }
 
-            isPlaying = !isPlaying;
+            //isPlaying = !isPlaying;
         });
 
     }
